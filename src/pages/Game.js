@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
 
 export default class Game extends Component {
 
   render() {
     return (
       <div>
-
+        Teste
       </div>
-    )
+    );
   }
 }
