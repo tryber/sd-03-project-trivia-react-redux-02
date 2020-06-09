@@ -216,7 +216,7 @@ describe('A pessoa que joga deve responder 5 perguntas no total', () => {
     });
   });
 
-  it('redireciona para a tela de _ranking_ após a quinta pergunta', () => {
+  it('redireciona para a tela de _feedback_ após a quinta pergunta', () => {
     cy.get(CORRECT_ALTERNATIVE_SELECTOR).click();
     cy.get(BUTTON_NEXT_QUESTION_SELECTOR).click();
     cy.get(CORRECT_ALTERNATIVE_SELECTOR).click();
