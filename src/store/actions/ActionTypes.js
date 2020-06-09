@@ -1,2 +1,2 @@
-export const HANDLE_LOGIN = "HANDLE_LOGIN";
-export const HANDLE_SUBMIT = "HANDLE_SUBMIT";
+export const HANDLE_LOGIN = 'HANDLE_LOGIN';
+export const HANDLE_SUBMIT = 'HANDLE_SUBMIT';
