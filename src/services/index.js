@@ -1,1 +1,1 @@
-export { default as GET_AVATAR_API } from './GET_AVATAR_API';
+export { default as GET_GRAVATAR_HASH } from './GET_GRAVATAR_HASH';

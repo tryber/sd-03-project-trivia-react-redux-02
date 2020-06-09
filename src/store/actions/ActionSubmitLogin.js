@@ -1,9 +1,9 @@
 import * as types from './ActionTypes';
-import { GET_AVATAR_API } from '../../services';
+import { GET_GRAVATAR_HASH } from '../../services';
 
-const ActionGetGravatar = (name, email) => ({
-  type: types.GET_GRAVATAR,
-  payload: { email, name },
+const ActionSubmitLogin = (email) => ({
+  type: types.HANDLE_SUBMIT,
+  payload: { hash: GET_GRAVATAR_HASH(email) }
 })
 
-export default ActionGetGravatar;
+export default ActionSubmitLogin;

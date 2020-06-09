@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ActionSubmitLogin, ActionHandleLogin } from '../store/actions';
+import PropTypes from 'prop-types';
+import { ActionSubmitLogin, ActionHandleLogin } from '../../store/actions';
 
-const
-
-const Login = (props) => {
+const Input = (props) => {
   const { name, email, HandleLogin, SubmitLogin } = props;
   const disabled = (name !== '' && email !== '')
   return (
     <div>
-      <form action={SubmitLogin(email, name)}>
+      <form onSubmit={() => SubmitLogin(email)}>
         <label for="email">Email do Gravatar:</label>
         <input htmlFor="email" type="email" name="email" data-testid="input-gravatar-email" value={email} onChange={(e) => HandleLogin(e.target)} />
         <label for="player-name">Nome do Jogador:</label>
@@ -21,8 +20,13 @@ const Login = (props) => {
   );
 }
 
+const Login = (props) => {
+  if (props.logged) return <img src={props.hash} />
+  return Input(props);
+}
 
-const mapStateToProps = ({ ReducerLogin: { name, email } }) => ({ name, email });
+
+const mapStateToProps = ({ ReducerLogin: { name, email, logged, hash } }) => ({ name, email, logged, hash });
 
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
