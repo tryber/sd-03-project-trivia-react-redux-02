@@ -9,33 +9,31 @@ const Input = (props) => {
   const disabled = (name !== '' && email !== '');
   return (
     <div>
-      <form onSubmit={() => SubmitLogin(email)}>
-        <label htmlFor="email">Email do Gravatar:</label>
-        <input
-          htmlFor="email"
-          name="email"
-          value={email}
-          type="email"
-          data-testid="input-gravatar-email"
-          onChange={(e) => HandleLogin(e.target)}
-        />
-        <label htmlFor="player-name">Nome do Jogador:</label>
-        <input
-          htmlFor="player-name"
-          name="name"
-          value={name}
-          type="text"
-          data-testid="input-player-name"
-          onChange={(e) => HandleLogin(e.target)}
-        />
-        <input type="submit" value="Jogar" data-testid="btn-play" disabled={!disabled} />
-      </form>
+      <label htmlFor="email">Email do Gravatar:</label>
+      <input
+        htmlFor="email"
+        name="email"
+        value={email}
+        type="email"
+        data-testid="input-gravatar-email"
+        onChange={(e) => HandleLogin(e.target)}
+      />
+      <label htmlFor="player-name">Nome do Jogador:</label>
+      <input
+        htmlFor="player-name"
+        name="name"
+        value={name}
+        type="text"
+        data-testid="input-player-name"
+        onChange={(e) => HandleLogin(e.target)}
+      />
+      <button type="button" value="Jogar" data-testid="btn-play" disabled={!disabled} onClick={() => SubmitLogin(email)} >Jogar</button>
     </div>
   );
 }
 
 const Login = (props) => {
-  if (props.logged) return <img src={props.hash} alt="gravatar-icon" />;
+  if (props.logged) return props.history.push('./game')
   return Input(props);
 }
 
@@ -50,7 +48,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
     HandleLogin: ActionHandleLogin,
     SubmitLogin: ActionSubmitLogin,
   }, dispatch,
-);
+)
 
 Login.propTypes = {
   name: PropTypes.string.isRequired,

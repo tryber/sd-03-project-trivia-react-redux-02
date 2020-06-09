@@ -11,7 +11,7 @@ class Game extends Component {
   render() {
     return (
       <div>
-        TESTE
+        GAMEEEEEEEEEEEEEEEE
       </div>
     );
   }
