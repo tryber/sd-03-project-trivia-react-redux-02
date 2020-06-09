@@ -9,7 +9,7 @@ const GameHeader = ({ score, name, email }) => {
     <div>
       <img
         src={`https://www.gravatar.com/avatar/${MD5(trimmedAndLowercasedMail)}`}
-        alt="Gravatar image"
+        alt="Gravatar"
         data-testid="header-profile-picture"
       />
       <h1 data-testid="header-player-name">{`Jogador: ${name}`}</h1>
