@@ -5,7 +5,7 @@ const INICIAL_STATE = {
   email: '',
   hash: '',
   logged: false,
-}
+};
 
 const ReducerLogin = (state = INICIAL_STATE, { type, payload }) => {
   switch (type) {

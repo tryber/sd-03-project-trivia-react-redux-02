@@ -17,7 +17,7 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = ({ }) => ({});
+const mapStateToProps = (state) => ({ state });
 
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(

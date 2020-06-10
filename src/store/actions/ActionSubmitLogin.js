@@ -1,5 +1,5 @@
 import * as types from './ActionTypes';
-import { GET_GRAVATAR_API } from '../../services';
+import GET_GRAVATAR_API from '../../services/GET_GRAVATAR_API';
 
 const ActionSubmitLogin = (email) => ({
   type: types.HANDLE_SUBMIT,
