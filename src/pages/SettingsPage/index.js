@@ -10,9 +10,9 @@ export default class Settings extends Component {
     };
   }
 
-  componentDidMount() {
-    const categories = GET_CATEGORY_API();
-    this.setState({ loading: false, categories });
+  async componentDidMount() {
+    const categories = await GET_CATEGORY_API();
+    console.log(categories);
   }
 
   render() {
