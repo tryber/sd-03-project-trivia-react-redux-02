@@ -12,7 +12,7 @@ class Login extends React.Component {
   }
 
   async startGame() {
-    const { SubmitLogin, email, GetToken } = this.props;
+    const { SubmitLogin, GetToken, email, name } = this.props;
     const token = localStorage.getItem('token');
     if (!token) {
       await GetToken();
