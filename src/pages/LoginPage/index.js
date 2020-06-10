@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { ActionSubmitLogin, ActionHandleLogin, ActionGetToken } from '../../store/actions';
+import SettingsButton from '../../components/SettingsButton';
 
 class Login extends React.Component {
   constructor(props) {
@@ -75,6 +76,7 @@ class Login extends React.Component {
   renderInput() {
     return (
       <div>
+        <SettingsButton />
         {this.renderInputEmail()}
         {this.renderInputName()}
         {this.renderSubmitButton()}
