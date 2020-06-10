@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import reducerTeste from './reducerTeste';
+import ReducerLogin from './ReducerLogin';
+import ReducerToken from './ReducerToken';
+import ReducerQuestions from './ReducerQuestions';
 
 const rootReducer = () => combineReducers({
-  reducerTeste,
+  ReducerLogin,
+  ReducerToken,
+  ReducerQuestions,
 });
 
 export default rootReducer;
