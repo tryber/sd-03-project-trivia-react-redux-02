@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import reducerTeste from './reducerTeste';
 import reducerTriviaAPI from './reducerTriviaAPI'
+import ReducerLogin from './ReducerLogin';
 
 const rootReducer = () => combineReducers({
-  reducerTeste,
+  ReducerLogin,
   reducerTriviaAPI,
 });
 

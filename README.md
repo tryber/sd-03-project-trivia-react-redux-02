@@ -23,7 +23,7 @@ A pessoa que joga pode configurar algumas opções para o jogo em uma tela de co
 
 Você pode acessar um protótipo no link abaixo:
 
-https://www.figma.com/file/MxuXDNVbiZb69kM9NI0jhZ/Trivia-project?node-id=0%3A1
+https://www.figma.com/file/9XUqIwKEFBfbZn5t8MMZJY/Trivia---project?node-id=0%3A1
 
 #### ⚠️ Lembre-se de escrever testes unitários e sinta-se livre para alterar a UI, só respeite os atributos `data-testid`, eles serão usados na correção do exercício.
 
@@ -179,7 +179,7 @@ Todos os elementos devem respeitar os atributos descritos no protótipo.
     * O botão "Jogar" que leva a pessoa ao jogo deve possuir o atributo `data-testid` com o valor `btn-play`
     * A pessoa que joga deve conseguir escrever seu nome no input de texto
     * A pessoa que joga deve conseguir escrever seu email no input de email
-    * O botão "Jogar" deve ser desabilitado caso email e/ou senha não estejam preenchidos
+    * O botão "Jogar" deve ser desabilitado caso email e/ou nome não estejam preenchidos
 
 1. A pessoa que joga deve ter acesso à tela de configurações através da tela inicial
 
@@ -210,7 +210,7 @@ Todos os elementos devem respeitar os atributos descritos no protótipo.
         * O elemento com a alternativa correta deve possuir o atributo `data-testid` com o valor `correct-answer`
         * Os elementos com as alternativas incorretas devem possuir o atributo `data-testid` com o valor `wrong-answer-${index}`, com `${index}` iniciando com o valor `0`
         * As alternativas devem ser exibidas em ordem aleatória
-        * Dica: utilize botões (<button/>) para as alternativas
+        * Dica: utilize botões (`<button/>`) para as alternativas
 
 1. Só deve ser possível escolher uma resposta correta por pergunta
 
@@ -240,7 +240,7 @@ Todos os elementos devem respeitar os atributos descritos no protótipo.
 1. A pessoa que joga deve responder 5 perguntas no total
 
     * A cada nova pergunta o temporizador deve ser reiniciado para 30 segundos
-    * Após a quinta pergunta, o botão "Próxima" deve redirecionar a pessoa para a tela de _Ranking_
+    * Após a quinta pergunta, o botão "Próxima" deve redirecionar a pessoa para a tela de _Feedback_
     * Para perguntas com type:"boolean", mostrar somente 2 campos (um para cada resposta possível)
     * Para perguntas com type:"multiple", mostrar a quantidade necessária de campos (um para cada resposta possível)
 
