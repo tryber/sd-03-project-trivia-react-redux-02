@@ -1,4 +1,3 @@
-// timer action
 export const RESET = 'RESET';
 export const STOP = 'STOP';
 export const DECREASE = 'DECREASE';
