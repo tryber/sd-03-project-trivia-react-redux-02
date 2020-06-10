@@ -36,7 +36,15 @@ class Login extends React.Component {
           data-testid="input-player-name"
           onChange={(e) => HandleLogin(e.target)}
         />
-        <button type="button" value="Jogar" data-testid="btn-play" disabled={!disabled} onClick={() => SubmitLogin(email)}>Jogar</button>
+        <button
+          type="button"
+          value="Jogar"
+          data-testid="btn-play"
+          disabled={!disabled}
+          onClick={() => SubmitLogin(email)}
+        >
+          Jogar
+        </button>
       </div>
     );
   }
