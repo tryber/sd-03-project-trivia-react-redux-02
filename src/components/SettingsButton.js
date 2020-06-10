@@ -9,3 +9,4 @@ class SettingsButton extends React.Component {
 }
 
 export default SettingsButton;
+
