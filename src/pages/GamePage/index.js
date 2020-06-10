@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import propTypes from 'prop-types';
+import SettingsButton from '../../components/SettingsButton';
 import ActionGetQuestions from '../../store/actions/ActionGetQuestions';
 
 class Game extends Component {
@@ -23,6 +24,7 @@ class Game extends Component {
     }
     return (
       <div>
+        <SettingsButton />
         {questions.map((item) => <div>{item.category}</div>)}
       </div>
     );
