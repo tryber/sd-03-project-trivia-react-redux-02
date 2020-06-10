@@ -11,11 +11,8 @@ class Login extends React.Component {
     this.state = {};
   }
 
-  renderInput() {
-    const {
-      name, email, HandleLogin, SubmitLogin,
-    } = this.props;
-    const disabled = (name !== '' && email !== '');
+  renderInputEmail() {
+    const { email, HandleLogin } = this.props;
     return (
       <div>
         <label htmlFor="email">Email do Gravatar:</label>
@@ -27,6 +24,14 @@ class Login extends React.Component {
           data-testid="input-gravatar-email"
           onChange={(e) => HandleLogin(e.target)}
         />
+      </div>
+    );
+  }
+
+  renderInputName() {
+    const { name, HandleLogin } = this.props;
+    return (
+      <div>
         <label htmlFor="player-name">Nome do Jogador:</label>
         <input
           htmlFor="player-name"
@@ -36,6 +41,15 @@ class Login extends React.Component {
           data-testid="input-player-name"
           onChange={(e) => HandleLogin(e.target)}
         />
+      </div>
+    );
+  }
+
+  renderSubmitButton() {
+    const { SubmitLogin, email, name } = this.props;
+    const disabled = (name !== '' && email !== '');
+    return (
+      <div>
         <button
           type="button"
           value="Jogar"
@@ -45,6 +59,16 @@ class Login extends React.Component {
         >
           Jogar
         </button>
+      </div>
+    );
+  }
+
+  renderInput() {
+    return (
+      <div>
+        {this.renderInputEmail()}
+        {this.renderInputName()}
+        {this.renderSubmitButton()}
       </div>
     );
   }
