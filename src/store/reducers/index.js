@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import reducerTriviaAPI from './reducerTriviaAPI'
 import ReducerLogin from './ReducerLogin';
+import ReducerToken from './ReducerToken';
+import ReducerQuestions from './ReducerQuestions';
 
 const rootReducer = () => combineReducers({
   ReducerLogin,
-  reducerTriviaAPI,
+  ReducerToken,
+  ReducerQuestions,
 });
 
 export default rootReducer;
