@@ -7,10 +7,12 @@ import Ranking from './pages/Ranking';
 import Settings from './pages/Settings';
 import Header from './components/Header';
 import './App.css';
+import TriviaAPI from './services/triviaAPI';
 
 export default function App() {
   return (
     <div className="App">
+      <TriviaAPI />
       <Header />
       <Switch>
         <Route exact path="/" component={Login} />
