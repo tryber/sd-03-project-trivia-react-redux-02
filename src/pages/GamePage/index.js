@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import propTypes from 'prop-types';
-import SettingsButton from '../../components/SettingsButton';
+import GameHeader from '../../components/GameHeader';
+import GameContent from '../../components/GameContent';
+import GameFooter from '../../components/GameFooter';
+import Loading from '../../components/Loading';
 import ActionGetQuestions from '../../store/actions/ActionGetQuestions';
 
 class Game extends Component {
@@ -16,25 +19,29 @@ class Game extends Component {
   render() {
     const { questions } = this.props;
     if (questions.length === 0) {
-      return (
-        <div>
-          Carregando
-        </div>
-      );
+      return <Loading />;
     }
     return (
-      <div>
-        <SettingsButton />
-        {questions.map((item) => <div>{item.category}</div>)}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          className="card"
+          style={{
+            width: '400px',
+          }}
+        >
+          <GameHeader />
+          <GameContent />
+          <GameFooter />
+        </div>
       </div>
     );
   }
 }
-
-Game.propTypes = {
-  GetQuestions: propTypes.func.isRequired,
-  questions: propTypes.arrayOf(propTypes.object).isRequired,
-};
 
 const mapStateToProps = ({ ReducerQuestions: { loading, questions } }) => ({
   loading,
@@ -49,6 +56,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
 );
 
 Game.propTypes = {
+  GetQuestions: propTypes.func.isRequired,
+  questions: propTypes.arrayOf(propTypes.object).isRequired,
 };
 
 Game.defaultProps = {

@@ -3,8 +3,10 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { ActionSubmitLogin, ActionHandleLogin, ActionGetToken } from '../../store/actions';
+import 'bulma/css/bulma.css';
 import SettingsButton from '../../components/SettingsButton';
+import { ActionSubmitLogin, ActionHandleLogin, ActionGetToken } from '../../store/actions';
+import GET_GRAVATAR_API from '../../services/GET_GRAVATAR_API';
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,19 +15,27 @@ class Login extends React.Component {
   }
 
   async startGame() {
-    const { SubmitLogin, GetToken, email } = this.props;
+    const {
+      SubmitLogin, GetToken, email, name,
+    } = this.props;
     const token = localStorage.getItem('token');
+    const gravatarEmail = await GET_GRAVATAR_API(email);
+    SubmitLogin(email);
     if (!token) {
       await GetToken();
     }
-    SubmitLogin(email);
+    const player = localStorage.getItem('state');
+    if (!player) {
+      localStorage.removeItem('state');
+      localStorage.setItem('state', JSON.stringify({ player: { name, gravatarEmail } }));
+    }
   }
 
   renderInputEmail() {
     const { email, HandleLogin } = this.props;
     return (
-      <div>
-        <label htmlFor="email">Email do Gravatar:</label>
+      <div className="field">
+        <label htmlFor="email" className="label">Email do Gravatar:</label>
         <input
           htmlFor="email"
           name="email"
@@ -33,6 +43,7 @@ class Login extends React.Component {
           type="email"
           data-testid="input-gravatar-email"
           onChange={(e) => HandleLogin(e.target)}
+          className="input"
         />
       </div>
     );
@@ -41,8 +52,8 @@ class Login extends React.Component {
   renderInputName() {
     const { name, HandleLogin } = this.props;
     return (
-      <div>
-        <label htmlFor="player-name">Nome do Jogador:</label>
+      <div className="field">
+        <label htmlFor="player-name" className="label">Nome do Jogador:</label>
         <input
           htmlFor="player-name"
           name="name"
@@ -50,6 +61,7 @@ class Login extends React.Component {
           type="text"
           data-testid="input-player-name"
           onChange={(e) => HandleLogin(e.target)}
+          className="input"
         />
       </div>
     );
@@ -59,27 +71,45 @@ class Login extends React.Component {
     const { email, name } = this.props;
     const disabled = (name !== '' && email !== '');
     return (
-      <div>
-        <button
-          type="button"
-          value="Jogar"
-          data-testid="btn-play"
-          disabled={!disabled}
-          onClick={() => this.startGame()}
-        >
-          Jogar
-        </button>
-      </div>
+      <button
+        type="button"
+        value="Jogar"
+        data-testid="btn-play"
+        disabled={!disabled}
+        onClick={() => this.startGame()}
+        className="button is-success"
+      >
+        Jogar
+      </button>
+
     );
   }
 
   renderInput() {
     return (
-      <div>
-        <SettingsButton />
-        {this.renderInputEmail()}
-        {this.renderInputName()}
-        {this.renderSubmitButton()}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          className="card"
+          style={{
+            width: '400px',
+          }}
+        >
+          <div className="card-header">
+            <SettingsButton />
+          </div>
+          <div className="card-content">
+            {this.renderInputEmail()}
+            {this.renderInputName()}
+          </div>
+          <div className="card-content">
+            {this.renderSubmitButton()}
+          </div>
+        </div>
       </div>
     );
   }
@@ -87,6 +117,7 @@ class Login extends React.Component {
   render() {
     const { logged } = this.props;
     if (logged) return <Redirect to="/game" />;
+
     return this.renderInput();
   }
 }
