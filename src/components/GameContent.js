@@ -5,20 +5,51 @@ import propTypes from 'prop-types';
 class GameContent extends Component {
   renderQuestions() {
     const { questions, index } = this.props;
-    console.log(questions[index].question);
-    return (<div>TESTE</div>);
+    const { category, question } = questions[index];
+    return (
+      <div className="game-content-question">
+        <div data-testid="question-category" className="game-content-category">
+          {category}
+        </div>
+        <div data-testid="question-text">
+          <p>{question}</p>
+        </div>
+      </div>
+    );
+  }
+
+  generateOptions() {
+    const { questions, index } = this.props;
+    const { correct_answer, incorrect_answers } = questions[index];
+    return document.getElementsByClassName('answer');
   }
 
   renderOptions() {
     const { questions, index } = this.props;
-    console.log(questions[index].incorrect_answers,
-      questions[index].correct_answer);
-    return (<div>TESTE</div>);
+    const { correct_answer, incorrect_answers } = questions[index];
+    return (
+      <div className="game-content-answers">
+        <button data-testid="correct-answer" type="button" className="button is-fullwidth">
+          {correct_answer}
+        </button>
+        {incorrect_answers.map(
+          (answer, i) => (
+            <button
+              data-testid={`wrong-answer-${i}`}
+              type="button"
+              className="button is-fullwidth"
+            >
+              {answer}
+            </button>
+          ),
+        )}
+      </div>
+    );
   }
 
   render() {
     return (
-      <div>
+      <div className="game-content">
         {this.renderQuestions()}
         {this.renderOptions()}
       </div>
