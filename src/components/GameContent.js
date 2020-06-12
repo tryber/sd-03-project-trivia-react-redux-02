@@ -5,7 +5,9 @@ import propTypes from 'prop-types';
 class GameContent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      questionIndex: 0,
+    };
   }
 
   renderQuestions() {
