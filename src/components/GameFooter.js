@@ -10,11 +10,13 @@ class GameFooter extends Component {
   }
 
   renderTimer() {
-    return (<div>Teste</div>)
+    console.log(this.props);
+    return (<div>Teste</div>);
   }
 
   renderButtonNextQuestion() {
-    return (<div>Teste</div>)
+    console.log(this.props);
+    return (<div>Teste</div>);
   }
 
   render() {

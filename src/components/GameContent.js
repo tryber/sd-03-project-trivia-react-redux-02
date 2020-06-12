@@ -10,12 +10,14 @@ class GameContent extends Component {
 
   renderQuestions() {
     const { questions, index } = this.props;
-    return (<div>TESTE</div>)
+    console.log(this.props, questions, index);
+    return (<div>TESTE</div>);
   }
 
   renderOptions() {
     const { questions, index } = this.props;
-    return (<div>TESTE</div>)
+    console.log(this.props, questions, index);
+    return (<div>TESTE</div>);
   }
 
   render() {

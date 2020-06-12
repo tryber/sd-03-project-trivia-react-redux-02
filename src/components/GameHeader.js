@@ -19,7 +19,7 @@ class GameHeader extends Component {
             </div>
             <p className="title is-6">{`Jogador: ${name}`}</p>
             <div className="media-right">
-              <p className="subtitle is-6">{`Pontos: 10`}</p>
+              <p className="subtitle is-6">{`Pontos: ${name}`}</p>
             </div>
           </div>
         </div>
