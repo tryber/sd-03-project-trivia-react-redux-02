@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import propTypes from 'prop-types';
 import SettingsButton from '../../components/SettingsButton';
+import Loading from '../../components/Loading';
 import ActionGetQuestions from '../../store/actions/ActionGetQuestions';
 
 class Game extends Component {
@@ -16,11 +17,7 @@ class Game extends Component {
   render() {
     const { questions } = this.props;
     if (questions.length === 0) {
-      return (
-        <div>
-          Carregando
-        </div>
-      );
+      return <Loading />;
     }
     return (
       <div>
