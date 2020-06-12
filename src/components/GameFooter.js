@@ -40,10 +40,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
   }, dispatch,
 );
 
-GameFooter.propTypes = {
-  GetQuestions: propTypes.func.isRequired,
-  questions: propTypes.arrayOf(propTypes.object).isRequired,
-};
+GameFooter.propTypes = {};
 
 GameFooter.defaultProps = {
 };

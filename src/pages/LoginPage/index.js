@@ -3,10 +3,10 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import 'bulma/css/bulma.css';
 import SettingsButton from '../../components/SettingsButton';
 import { ActionSubmitLogin, ActionHandleLogin, ActionGetToken } from '../../store/actions';
 import GET_GRAVATAR_API from '../../services/GET_GRAVATAR_API';
-import 'bulma/css/bulma.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -26,6 +26,7 @@ class Login extends React.Component {
     }
     const player = localStorage.getItem('state');
     if (!player) {
+      localStorage.removeItem('state');
       localStorage.setItem('state', JSON.stringify({ player: { name, gravatarEmail } }));
     }
   }
@@ -86,10 +87,12 @@ class Login extends React.Component {
 
   renderInput() {
     return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
         <div
           className="card"
           style={{
