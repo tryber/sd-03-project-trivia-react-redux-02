@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   questions: [],
   error: '',
+  index: 0,
 };
 
 function ReducerQuestions(state = initialState, action) {
@@ -24,6 +25,11 @@ function ReducerQuestions(state = initialState, action) {
         ...state,
         loading: false,
         error: action.payload.error,
+      };
+    case types.NEXT_QUESTION:
+      return {
+        ...state,
+        index: state.index + 1,
       };
     default:
       return state;
