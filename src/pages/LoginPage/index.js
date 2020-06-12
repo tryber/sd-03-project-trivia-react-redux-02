@@ -15,17 +15,19 @@ class Login extends React.Component {
   }
 
   async startGame() {
-    const { SubmitLogin, GetToken, email, name } = this.props;
+    const {
+      SubmitLogin, GetToken, email, name,
+    } = this.props;
     const token = localStorage.getItem('token');
     const gravatarEmail = await GET_GRAVATAR_API(email);
-    const player = localStorage.getItem('state');
+    SubmitLogin(email);
     if (!token) {
       await GetToken();
     }
+    const player = localStorage.getItem('state');
     if (!player) {
       localStorage.setItem('state', JSON.stringify({ player: { name, gravatarEmail } }));
     }
-    SubmitLogin(email);
   }
 
   renderInputEmail() {
@@ -85,10 +87,15 @@ class Login extends React.Component {
   renderInput() {
     return (
       <div style={{
-        width: '400px', alignContent: 'center',
-      }
-      }>
-        <div className="card">
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
+        <div
+          className="card"
+          style={{
+            width: '400px',
+          }}
+        >
           <div className="card-header">
             <SettingsButton />
           </div>
@@ -96,11 +103,11 @@ class Login extends React.Component {
             {this.renderInputEmail()}
             {this.renderInputName()}
           </div>
-          <div>
+          <div className="card-content">
             {this.renderSubmitButton()}
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 
