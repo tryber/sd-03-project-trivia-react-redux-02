@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import propTypes from 'prop-types';
 
 class GameFooter extends Component {
   constructor(props) {
