@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Timer from './Timer';
 import { ActionResetTimer } from '../store/actions/ActionsTimer';
-import { ActionChangeQuestion } from '../store/actions';
+import { ActionNextQuestion } from '../store/actions';
 
 
 class GameFooter extends Component {
@@ -54,7 +54,7 @@ const mapStateToProps = ({ ReducerTimer: { timer } }) => ({
 const mapDispatchToProps = (dispatch) => bindActionCreators(
   {
     ResetTimer: ActionResetTimer,
-    ChangeQuestion: ActionChangeQuestion,
+    ChangeQuestion: ActionNextQuestion,
   }, dispatch,
 );
 

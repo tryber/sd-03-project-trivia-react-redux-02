@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { ActionStopTimer } from '../store/actions/ActionsTimer';
+import '../pages/GamePage/GamePage.css';
 
 class GameContent extends Component {
   static highlightCorrectAnswer() {
@@ -8,14 +11,16 @@ class GameContent extends Component {
     const wrongAnswersArr = [...wrongAnswers];
     const correctAnswer = document.getElementsByClassName('correct-answer')[0];
     wrongAnswersArr.map((answer) => answer.classList.add('wrong'));
+    wrongAnswersArr.map((answer) => answer.classList.add('is-danger'));
     correctAnswer.classList.add('correct');
+    correctAnswer.classList.add('is-success');
   }
 
   static calculatePoints() {
-    const { questions, index, time } = this.props;
-    const { difficulty } = questions[index];
+    const { questions, questionNumber, timer } = this.props;
+    const { difficulty } = questions[questionNumber];
     const difficultyValue = this.difficultyMeasurement(difficulty);
-    const points = 10 + (time * difficultyValue);
+    const points = 10 + (timer * difficultyValue);
     return points;
   }
 
@@ -36,11 +41,11 @@ class GameContent extends Component {
   }
 
   generateOptions() {
-    const { questions, index } = this.props;
+    const { questions, questionNumber } = this.props;
     const {
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers,
-    } = questions[index];
+    } = questions[questionNumber];
     const options = [{
       answer: correctAnswer,
       isCorrect: true,
@@ -53,8 +58,8 @@ class GameContent extends Component {
   }
 
   renderQuestions() {
-    const { questions, index } = this.props;
-    const { category, question } = questions[index];
+    const { questions, questionNumber } = this.props;
+    const { category, question } = questions[questionNumber];
     return (
       <div className="game-content-question">
         <div data-testid="question-category" className="game-content-category">
@@ -77,7 +82,7 @@ class GameContent extends Component {
               type="button"
               className={`button is-fullwidth 
                 ${object.isCorrect ? 'correct-answer' : 'wrong-answer'}`}
-              onClick={() => GameContent.highlighCorrectAnswer()}
+              onClick={GameContent.highlightCorrectAnswer}
             >
               {object.answer}
             </button>
@@ -97,17 +102,30 @@ class GameContent extends Component {
   }
 }
 
-const mapStateToProps = ({ ReducerQuestions: { questions, index } }) => ({
-  index,
+const mapStateToProps = (
+  {
+    ReducerQuestions: { questions, questionNumber },
+    ReducerTimer: { timer },
+  },
+) => ({
+  questionNumber,
   questions,
+  timer,
 });
 
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+  {
+    stopTimer: ActionStopTimer,
+  }, dispatch,
+);
+
 GameContent.propTypes = {
-  index: propTypes.number.isRequired,
+  questionNumber: propTypes.number.isRequired,
   questions: propTypes.arrayOf(propTypes.object).isRequired,
+  timer: propTypes.number.isRequired,
 };
 
 GameContent.defaultProps = {
 };
 
-export default connect(mapStateToProps)(GameContent);
+export default connect(mapStateToProps, mapDispatchToProps)(GameContent);
