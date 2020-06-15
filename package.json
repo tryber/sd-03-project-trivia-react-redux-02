@@ -20,11 +20,7 @@
     "react-redux": "^7.2.0",
     "react-route": "^1.0.3",
     "react-router-dom": "^5.1.2",
-<<<<<<< HEAD
-    "react-scripts": "3.3.0",
-=======
     "react-scripts": "3.4.0",
->>>>>>> 8d98f526067554ab60cbdc0c8a226355fecf3bc4
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },
