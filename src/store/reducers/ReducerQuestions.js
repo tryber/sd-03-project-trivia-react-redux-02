@@ -3,8 +3,8 @@ import * as types from '../actions/ActionTypes';
 const initialState = {
   loading: false,
   questions: [],
+  questionNumber: 0,
   error: '',
-  index: 0,
 };
 
 function ReducerQuestions(state = initialState, action) {
@@ -29,7 +29,7 @@ function ReducerQuestions(state = initialState, action) {
     case types.NEXT_QUESTION:
       return {
         ...state,
-        index: state.index + 1,
+        index: state.questionNumber + 1,
       };
     default:
       return state;

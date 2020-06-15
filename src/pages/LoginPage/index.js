@@ -5,7 +5,9 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import 'bulma/css/bulma.css';
 import SettingsButton from '../../components/SettingsButton';
-import { ActionSubmitLogin, ActionHandleLogin, ActionGetToken } from '../../store/actions';
+import {
+  ActionSubmitLogin, ActionHandleLogin, ActionGetToken, ActionSavePlayer,
+} from '../../store/actions';
 import GET_GRAVATAR_API from '../../services/GET_GRAVATAR_API';
 
 class Login extends React.Component {
@@ -16,19 +18,17 @@ class Login extends React.Component {
 
   async startGame() {
     const {
-      SubmitLogin, GetToken, email, name,
+      SubmitLogin, GetToken, email, name, SavePlayer,
     } = this.props;
     const token = localStorage.getItem('token');
     const gravatarEmail = await GET_GRAVATAR_API(email);
-    SubmitLogin(email);
+    SavePlayer(name, gravatarEmail);
     if (!token) {
       await GetToken();
     }
-    const player = localStorage.getItem('state');
-    if (!player) {
-      localStorage.removeItem('state');
-      localStorage.setItem('state', JSON.stringify({ player: { name, gravatarEmail } }));
-    }
+    localStorage.removeItem('state');
+    localStorage.setItem('state', JSON.stringify({ player: { name, gravatarEmail } }));
+    SubmitLogin();
   }
 
   renderInputEmail() {
@@ -125,10 +125,10 @@ class Login extends React.Component {
 
 const mapStateToProps = ({
   ReducerLogin: {
-    name, email, logged, hash,
+    name, email, logged,
   },
 }) => ({
-  name, email, logged, hash,
+  name, email, logged,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
@@ -136,6 +136,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
     HandleLogin: ActionHandleLogin,
     SubmitLogin: ActionSubmitLogin,
     GetToken: ActionGetToken,
+    SavePlayer: ActionSavePlayer,
   }, dispatch,
 );
 
@@ -146,6 +147,7 @@ Login.propTypes = {
   HandleLogin: PropTypes.func.isRequired,
   SubmitLogin: PropTypes.func.isRequired,
   GetToken: PropTypes.func.isRequired,
+  SavePlayer: PropTypes.func.isRequired,
 };
 
 Login.defaultProps = {
