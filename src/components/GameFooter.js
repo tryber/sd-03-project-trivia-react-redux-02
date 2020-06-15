@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import Timer from './Timer';
+import { ActionResetTimer } from '../store/actions/ActionsTimer';
+import { ActionChangeQuestion } from '../store/actions';
+
 
 class GameFooter extends Component {
   constructor(props) {
@@ -8,38 +13,55 @@ class GameFooter extends Component {
     this.state = {};
   }
 
-  renderTimer() {
-    console.log(this.props);
-    return (<div>Testão</div>);
+  nextQuestion() {
+    const { ResetTimer, ChangeQuestion } = this.props;
+    ChangeQuestion();
+    ResetTimer();
   }
 
   renderButtonNextQuestion() {
-    console.log(this.props);
-    return (<div>Teste</div>);
+    return (
+      <button
+        type="button"
+        className="button is-info card-footer-item"
+        onClick={() => this.nextQuestion()}
+        data-testid="btn-next"
+      >
+        PRÓXIMA QUESTÃO
+      </button>
+    );
   }
 
   render() {
     return (
-      <div>
-        {this.renderTimer()}
-        {this.renderButtonNextQuestion()}
+      <div className="card-footer">
+        <div className="card-footer-item">
+          <Timer />
+        </div>
+        <div>
+          {this.renderButtonNextQuestion()}
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ ReducerQuestions: { loading, questions } }) => ({
-  loading,
-  questions,
+const mapStateToProps = ({ ReducerTimer: { timer } }) => ({
+  timer,
 });
 
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
   {
+    ResetTimer: ActionResetTimer,
+    ChangeQuestion: ActionChangeQuestion,
   }, dispatch,
 );
 
-GameFooter.propTypes = {};
+GameFooter.propTypes = {
+  ResetTimer: PropTypes.func.isRequired,
+  ChangeQuestion: PropTypes.func.isRequired,
+};
 
 GameFooter.defaultProps = {
 };

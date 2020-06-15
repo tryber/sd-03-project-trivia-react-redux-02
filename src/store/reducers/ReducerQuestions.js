@@ -3,6 +3,7 @@ import * as types from '../actions/ActionTypes';
 const initialState = {
   loading: false,
   questions: [],
+  questionNumber: 0,
   error: '',
 };
 
@@ -25,6 +26,8 @@ function ReducerQuestions(state = initialState, action) {
         loading: false,
         error: action.payload.error,
       };
+    case types.CHANGE_QUESTION:
+      return { ...state, questionNumber: state.questionNumber + 1 };
     default:
       return state;
   }
