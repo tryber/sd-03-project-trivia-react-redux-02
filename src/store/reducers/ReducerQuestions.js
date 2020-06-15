@@ -32,11 +32,6 @@ function ReducerQuestions(state = initialState, action) {
         ...state,
         questionNumber: state.questionNumber + 1,
       };
-    case types.SORT_ANSWERS:
-      return {
-        ...state,
-        sorted: true,
-      };
     default:
       return state;
   }
