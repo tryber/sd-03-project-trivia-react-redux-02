@@ -25,7 +25,7 @@ Você pode acessar um protótipo no link abaixo:
 
 https://www.figma.com/file/9XUqIwKEFBfbZn5t8MMZJY/Trivia---project?node-id=0%3A1
 
-#### ⚠️ Lembre-se de escrever testes unitários e sinta-se livre para alterar a UI, só respeite os atributos `data-testid`, eles serão usados na correção do exercício.
+#### ⚠️ Sinta-se livre para alterar a UI. Só respeite os atributos `data-testid`; eles serão usados na correção do exercício.
 
 #### ⚠️ Para ver os comentários sobre cada componente, basta clicar no ícone de comentários no Figma (lado esquerdo superior).
 
@@ -215,8 +215,8 @@ Todos os elementos devem respeitar os atributos descritos no protótipo.
 1. Só deve ser possível escolher uma resposta correta por pergunta
 
 1. Ao clicar em uma resposta, a resposta correta deve ficar verde e as incorretas, vermelhas
-    * Utilize a propriedade css `border` com o valor `3px solid rbd(6, 240, 15)` para a alternativa correta.
-    * Utilize a propriedade css `border` com o valor `3px solid rbd(255, 0, 0)` para as alternativas incorretas.
+    * Utilize a propriedade css `border` com o valor `3px solid rgb(6, 240, 15)` para a alternativa correta.
+    * Utilize a propriedade css `border` com o valor `3px solid rgb(255, 0, 0)` para as alternativas incorretas.
 
 1. A pessoa que joga tem 30 segundos para responder cada pergunta
 
