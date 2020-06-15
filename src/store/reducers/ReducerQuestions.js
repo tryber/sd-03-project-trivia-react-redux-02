@@ -3,6 +3,7 @@ import * as types from '../actions/ActionTypes';
 const initialState = {
   loading: false,
   questions: [],
+  sorted: false,
   questionNumber: 0,
   error: '',
 };
@@ -29,7 +30,12 @@ function ReducerQuestions(state = initialState, action) {
     case types.NEXT_QUESTION:
       return {
         ...state,
-        index: state.questionNumber + 1,
+        questionNumber: state.questionNumber + 1,
+      };
+    case types.SORT_ANSWERS:
+      return {
+        ...state,
+        sorted: true,
       };
     default:
       return state;
