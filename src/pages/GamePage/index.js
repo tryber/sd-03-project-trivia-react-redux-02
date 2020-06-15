@@ -7,6 +7,7 @@ import GameContent from '../../components/GameContent';
 import GameFooter from '../../components/GameFooter';
 import Loading from '../../components/Loading';
 import ActionGetQuestions from '../../store/actions/ActionGetQuestions';
+import './GamePage.css';
 
 class Game extends Component {
   componentDidMount() {

@@ -26,8 +26,11 @@ function ReducerQuestions(state = initialState, action) {
         loading: false,
         error: action.payload.error,
       };
-    case types.CHANGE_QUESTION:
-      return { ...state, questionNumber: state.questionNumber + 1 };
+    case types.NEXT_QUESTION:
+      return {
+        ...state,
+        index: state.questionNumber + 1,
+      };
     default:
       return state;
   }
