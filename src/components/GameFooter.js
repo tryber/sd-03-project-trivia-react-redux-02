@@ -27,7 +27,7 @@ class GameFooter extends Component {
         onClick={() => this.nextQuestion()}
         data-testid="btn-next"
       >
-        PRÓXIMA QUESTÃO
+        PRÓXIMA
       </button>
     );
   }
