@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: row;
 }
+
 .game-content-category {
-  background-color: #dddddd;
+  background-color: #ddd;
   margin: 5px 3px;
 }
+
 .game-content-question {
   background-color: #c4c4c4;
   display: flex;
@@ -14,6 +16,7 @@
   margin: 25px;
   padding: 2px 8px;
 }
+
 .game-content-answers {
   align-items: center;
   display: flex;
@@ -21,24 +24,31 @@
   flex-grow: 1;
   margin: 25px;
 }
+
 button {
   margin-top: 3px;
 }
+
 .wrong {
-  border: 3px solid red
+  border: 3px solid red;
 }
+
 .correct {
   border: 3px solid rgb(6, 240, 15);
 }
+
 .wrong:hover {
-  border: 3px solid rgb(255, 0, 0);
+  border: 3px solid red;
 }
+
 .correct:hover {
   border: 3px solid rgb(6, 240, 15);
 }
+
 .wrong:focus {
-  border: 3px solid rgb(255, 0, 0);
+  border: 3px solid red;
 }
+
 .correct:focus {
   border: 3px solid rgb(6, 240, 15);
 }
