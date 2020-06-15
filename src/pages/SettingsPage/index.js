@@ -8,7 +8,7 @@ class Settings extends Component {
   }
 
   render() {
-    return (<div>Merda</div>);
+    return (<div data-testid="settings-title">Merda</div>);
   }
 }
 
