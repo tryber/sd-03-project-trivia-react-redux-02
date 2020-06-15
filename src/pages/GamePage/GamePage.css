@@ -1,0 +1,54 @@
+.game-content {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .game-content-category {
+    background-color: #DDDDDD;
+    margin: 5px 3px;
+  }
+  
+  .game-content-question {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    background-color: #C4C4C4;
+    margin: 25px 25px;
+    padding: 2px 8px;
+  }
+  
+  .game-content-answers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    margin: 25px 25px;
+  }
+  
+  button {
+    margin-top: 3px;
+  }
+  
+  .wrong {
+    border: 3px solid rgb(255, 0, 0);
+  }
+  
+  .correct {
+    border: 3px solid rgb(6, 240, 15);
+  }
+  
+  .wrong:hover {
+    border: 3px solid rgb(255, 0, 0);
+  }
+  
+  .correct:hover {
+    border: 3px solid rgb(6, 240, 15);
+  }
+  
+  .wrong:focus {
+    border: 3px solid rgb(255, 0, 0);
+  }
+  
+  .correct:focus {
+    border: 3px solid rgb(6, 240, 15);
+  }

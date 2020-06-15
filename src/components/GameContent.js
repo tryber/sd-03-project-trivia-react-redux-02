@@ -7,8 +7,8 @@ class GameContent extends Component {
     const wrongAnswers = document.getElementsByClassName('wrong-answer');
     const wrongAnswersArr = [...wrongAnswers];
     const correctAnswer = document.getElementsByClassName('correct-answer')[0];
-    wrongAnswersArr.map((answer) => answer.classList.add('is-danger'));
-    correctAnswer.classList.add('is-success');
+    wrongAnswersArr.map((answer) => answer.classList.add('wrong'));
+    correctAnswer.classList.add('correct');
   }
 
   generateOptions() {
