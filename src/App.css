@@ -80,3 +80,7 @@
   flex-grow: 1;
   margin: 25px 25px;
 }
+
+button {
+  margin-top: 3px;
+}

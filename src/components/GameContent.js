@@ -3,6 +3,31 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 class GameContent extends Component {
+  static highlighCorrectAnswer() {
+    const wrongAnswers = document.getElementsByClassName('wrong-answer');
+    const wrongAnswersArr = [...wrongAnswers];
+    const correctAnswer = document.getElementsByClassName('correct-answer')[0];
+    wrongAnswersArr.map((answer) => answer.classList.add('is-danger'));
+    correctAnswer.classList.add('is-success');
+  }
+
+  generateOptions() {
+    const { questions, index } = this.props;
+    const {
+      correct_answer: correctAnswer,
+      incorrect_answers: incorrectAnswers,
+    } = questions[index];
+    const options = [{
+      answer: correctAnswer,
+      isCorrect: true,
+    }];
+    incorrectAnswers.map((answer) => options.push({
+      answer,
+      isCorrect: false,
+    }));
+    return options.sort(() => Math.random() - 0.5);
+  }
+
   renderQuestions() {
     const { questions, index } = this.props;
     const { category, question } = questions[index];
@@ -18,28 +43,19 @@ class GameContent extends Component {
     );
   }
 
-  generateOptions() {
-    const { questions, index } = this.props;
-    const { correct_answer, incorrect_answers } = questions[index];
-    return document.getElementsByClassName('answer');
-  }
-
   renderOptions() {
-    const { questions, index } = this.props;
-    const { correct_answer, incorrect_answers } = questions[index];
     return (
       <div className="game-content-answers">
-        <button data-testid="correct-answer" type="button" className="button is-fullwidth">
-          {correct_answer}
-        </button>
-        {incorrect_answers.map(
-          (answer, i) => (
+        {this.generateOptions().map(
+          (object, i) => (
             <button
-              data-testid={`wrong-answer-${i}`}
+              data-testid={object.isCorrect ? 'correct-answer' : `wrong-answer-${i}`}
               type="button"
-              className="button is-fullwidth"
+              className={`button is-fullwidth 
+                ${object.isCorrect ? 'correct-answer' : 'wrong-answer'}`}
+              onClick={GameContent.highlighCorrectAnswer}
             >
-              {answer}
+              {object.answer}
             </button>
           ),
         )}
