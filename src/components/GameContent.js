@@ -11,6 +11,30 @@ class GameContent extends Component {
     correctAnswer.classList.add('correct');
   }
 
+  static calculatePoints() {
+    const { questions, index, time } = this.props;
+    const { difficulty } = questions[index];
+    const difficultyValue = this.difficultyMeasurement(difficulty);
+    const points = 10 + (time * difficultyValue);
+    return points;
+  }
+
+
+  static difficultyMeasurement(difficulty) {
+    switch (difficulty) {
+      case 'easy': {
+        return 1;
+      }
+      case 'medium': {
+        return 2;
+      }
+      case 'hard': {
+        return 3;
+      }
+      default: return 0;
+    }
+  }
+
   generateOptions() {
     const { questions, index } = this.props;
     const {
@@ -53,7 +77,7 @@ class GameContent extends Component {
               type="button"
               className={`button is-fullwidth 
                 ${object.isCorrect ? 'correct-answer' : 'wrong-answer'}`}
-              onClick={GameContent.highlighCorrectAnswer}
+              onClick={() => GameContent.highlighCorrectAnswer()}
             >
               {object.answer}
             </button>
