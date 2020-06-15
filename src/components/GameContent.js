@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 class GameContent extends Component {
-  static highlighCorrectAnswer() {
+  static highlightCorrectAnswer() {
     const wrongAnswers = document.getElementsByClassName('wrong-answer');
     const wrongAnswersArr = [...wrongAnswers];
     const correctAnswer = document.getElementsByClassName('correct-answer')[0];
