@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { ActionStopTimer } from '../store/actions/ActionsTimer';
+import { ActionSaveScore } from '../store/actions';
 import '../pages/GamePage/GamePage.css';
 
 class GameContent extends Component {
@@ -19,7 +20,7 @@ class GameContent extends Component {
   }
 
   highlightCorrectAnswer() {
-    console.log(this.props);
+    console.log(this);
     const wrongAnswers = document.getElementsByClassName('wrong-answer');
     const wrongAnswersArr = [...wrongAnswers];
     const correctAnswer = document.getElementsByClassName('correct-answer')[0];
@@ -44,11 +45,21 @@ class GameContent extends Component {
   }
 
   calculatePoints() {
-    const { questions, questionNumber, timer } = this.props;
+    const { questions, questionNumber, timer, saveScore } = this.props;
     const { difficulty } = questions[questionNumber];
     const difficultyValue = this.difficultyMeasurement(difficulty);
     const points = 10 + (timer * difficultyValue);
-    return points;
+    return saveScore(points);
+  }
+
+  submitAnswer(e) {
+    this.highlightCorrectAnswer();
+    const answerClassList = e.target.classList;
+    const answer = [...answerClassList];
+
+    if (answer.includes('correct-answer')) {
+      this.calculatePoints();
+    }
   }
 
   generateOptions() {
@@ -74,17 +85,17 @@ class GameContent extends Component {
     return (
       <div className="game-content-question">
         <div data-testid="question-category" className="game-content-category">
-          {category}
+          {decodeURIComponent(category)}
         </div>
         <div data-testid="question-text">
-          <p>{question}</p>
+          <p>{decodeURIComponent(question)}</p>
         </div>
       </div>
     );
   }
 
   renderOptions() {
-    const { timer } = this.props;
+    const { timer, toStopTimer, stopTimer } = this.props;
     return (
       <div className="game-content-answers">
         {this.generateOptions().map(
@@ -92,12 +103,16 @@ class GameContent extends Component {
             <button
               data-testid={object.isCorrect ? 'correct-answer' : `wrong-answer-${i}`}
               type="button"
+              value={object.isCorrect}
               className={`button is-fullwidth 
                 ${object.isCorrect ? 'correct-answer' : 'wrong-answer'}`}
-              onClick={() => this.highlightCorrectAnswer()}
-              disabled={(timer === 0)}
+              onClick={(e) => {
+                this.submitAnswer(e);
+                toStopTimer();
+              }}
+              disabled={(timer === 0 || stopTimer)}
             >
-              {object.answer}
+              {decodeURIComponent(object.answer)}
             </button>
           ),
         )}
@@ -117,19 +132,20 @@ class GameContent extends Component {
 
 const mapStateToProps = (
   {
-    ReducerQuestions: { questions, questionNumber, sorted },
-    ReducerTimer: { timer },
+    ReducerQuestions: { questions, questionNumber },
+    ReducerTimer: { timer, stopTimer },
   },
 ) => ({
   questionNumber,
   questions,
   timer,
-  sorted,
+  stopTimer,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
   {
-    stopTimer: ActionStopTimer,
+    toStopTimer: ActionStopTimer,
+    saveScore: ActionSaveScore,
   }, dispatch,
 );
 
