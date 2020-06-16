@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { ActionStopTimer } from '../store/actions/ActionsTimer';
 import '../pages/GamePage/GamePage.css';
+import { ActionStopTimer } from '../store/actions/ActionsTimer';
+import { ActionSumPoints } from '../store/actions';
 
 class GameContent extends Component {
   static compareAnswers(a, b) {
@@ -43,12 +44,27 @@ class GameContent extends Component {
     }
   }
 
+  handleAnswer(event) {
+    this.highlightCorrectAnswer();
+    const answerHTMLCol = event.target.classList;
+    const answer = [...answerHTMLCol];
+    if (answer.includes('correct-answer')) {
+      this.calculatePoints();
+    }
+  }
+
   calculatePoints() {
-    const { questions, questionNumber, timer } = this.props;
+    const {
+      questions,
+      questionNumber,
+      timer, sumPoints,
+    } = this.props;
     const { difficulty } = questions[questionNumber];
     const difficultyValue = this.difficultyMeasurement(difficulty);
-    const points = 10 + (timer * difficultyValue);
-    return points;
+    let points = 10 + (timer * difficultyValue);
+    points += parseInt(localStorage.getItem('points'), 16);
+    localStorage.setItem('points', points);
+    sumPoints(points);
   }
 
   generateOptions() {
@@ -94,7 +110,7 @@ class GameContent extends Component {
               type="button"
               className={`button is-fullwidth 
                 ${object.isCorrect ? 'correct-answer' : 'wrong-answer'}`}
-              onClick={() => this.highlightCorrectAnswer()}
+              onClick={(event) => this.handleAnswer(event)}
               disabled={(timer === 0)}
             >
               {object.answer}
@@ -117,19 +133,19 @@ class GameContent extends Component {
 
 const mapStateToProps = (
   {
-    ReducerQuestions: { questions, questionNumber, sorted },
+    ReducerQuestions: { questions, questionNumber },
     ReducerTimer: { timer },
   },
 ) => ({
   questionNumber,
   questions,
   timer,
-  sorted,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
   {
     stopTimer: ActionStopTimer,
+    sumPoints: ActionSumPoints,
   }, dispatch,
 );
 
@@ -137,6 +153,7 @@ GameContent.propTypes = {
   questionNumber: propTypes.number.isRequired,
   questions: propTypes.arrayOf(propTypes.object).isRequired,
   timer: propTypes.number.isRequired,
+  sumPoints: propTypes.func.isRequired,
 };
 
 GameContent.defaultProps = {
