@@ -64,7 +64,7 @@ class GameFooter extends Component {
     const { questionNumber, ResetTimer } = this.props;
     if (questionNumber === 4) {
       return (
-        <Link to="/ranking">
+        <Link to="/feedback">
           <button
             type="button"
             className="button is-info card-footer-item"

@@ -26,7 +26,7 @@ class GameHeader extends Component {
             <p className="title is-6" data-testid="header-player-name">{`Jogador: ${player.name}`}</p>
             <div className="media-right">
               <p className="subtitle is-6" data-testid="header-score">
-                {`Pontos: ${score}`}
+                {score}
               </p>
             </div>
           </div>
