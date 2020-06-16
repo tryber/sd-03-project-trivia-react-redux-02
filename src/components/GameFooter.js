@@ -30,6 +30,20 @@ class GameFooter extends Component {
     correctAnswer.classList.remove('correct');
   }
 
+  saveScore() {
+    const {
+      name,
+      gravatarEmail,
+      assertions, score,
+    } = this.props;
+    const obj = {
+      player: {
+        name, gravatarEmail, assertions, score,
+      },
+    };
+    localStorage.setItem('state', JSON.stringify(obj));
+  }
+
   renderButtonNextQuestion() {
     const { questionNumber } = this.props;
     if (questionNumber === 4) {
@@ -39,6 +53,7 @@ class GameFooter extends Component {
             type="button"
             className="button is-info card-footer-item"
             data-testid="btn-next"
+            onClick={() => this.saveScore()}
           >
             FINALIZAR
           </button>
@@ -58,22 +73,37 @@ class GameFooter extends Component {
   }
 
   render() {
+    const { stopTimer } = this.props;
     return (
       <div className="card-footer">
         <div className="card-footer-item">
-          <Timer />
+          {!stopTimer && <Timer />}
         </div>
         <div>
-          {this.renderButtonNextQuestion()}
+          {stopTimer && this.renderButtonNextQuestion()}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ ReducerTimer: { timer }, ReducerQuestions: { questionNumber } }) => ({
+const mapStateToProps = ({
+  ReducerTimer: { timer, stopTimer },
+  ReducerQuestions: { questionNumber },
+  ReducerPlayer: {
+    name,
+    gravatarEmail,
+    assertions,
+    score,
+  },
+}) => ({
   timer,
   questionNumber,
+  name,
+  gravatarEmail,
+  assertions,
+  score,
+  stopTimer,
 });
 
 
@@ -88,6 +118,11 @@ GameFooter.propTypes = {
   ResetTimer: PropTypes.func.isRequired,
   ChangeQuestion: PropTypes.func.isRequired,
   questionNumber: PropTypes.number.isRequired,
+  stopTimer: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
+  assertions: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 GameFooter.defaultProps = {

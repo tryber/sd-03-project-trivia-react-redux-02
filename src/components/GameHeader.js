@@ -9,7 +9,7 @@ class GameHeader extends Component {
   }
 
   render() {
-    const { name, gravatarEmail, points } = this.props;
+    const { name, gravatarEmail, score } = this.props;
     return (
       <header className="card-header">
         <div className="card-header-title">
@@ -25,7 +25,7 @@ class GameHeader extends Component {
             <p className="title is-6" data-testid="header-player-name">{`Jogador: ${name}`}</p>
             <div className="media-right">
               <p className="subtitle is-6" data-testid="header-score">
-                {`Pontos: ${points}`}
+                {`Pontos: ${score}`}
               </p>
             </div>
           </div>
@@ -37,19 +37,17 @@ class GameHeader extends Component {
 
 const mapStateToProps = ({
   ReducerPlayer: { name, gravatarEmail, score },
-  ReducerPoints: { points },
 }) => ({
   name,
   gravatarEmail,
   score,
-  points,
 });
 
 
 GameHeader.propTypes = {
   name: PropTypes.string.isRequired,
   gravatarEmail: PropTypes.string.isRequired,
-  points: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(GameHeader);

@@ -1,9 +1,9 @@
 import * as types from './ActionTypes';
 
-const ActionSumPoints = (points) => ({
+const ActionSumPoints = (score) => ({
   type: types.SUM_POINTS,
   payload: {
-    points,
+    score,
   },
 });
 
