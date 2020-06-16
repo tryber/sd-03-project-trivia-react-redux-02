@@ -23,7 +23,7 @@ class GameHeader extends Component {
                 data-testid="header-profile-picture"
               />
             </div>
-            <p className="title is-6" data-testid="header-player-name">{`Jogador: ${player.name}`}</p>
+            <p className="title is-6" data-testid="header-player-name">{`Jogador : ${player.name}`}</p>
             <div className="media-right">
               <p className="subtitle is-6" data-testid="header-score">
                 {score}
