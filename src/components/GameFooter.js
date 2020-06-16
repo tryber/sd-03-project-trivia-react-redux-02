@@ -18,11 +18,21 @@ class GameFooter extends Component {
     const { ResetTimer, ChangeQuestion } = this.props;
     ChangeQuestion();
     ResetTimer();
+    this.removeCorrectAnswerHighlight();
+  }
+
+  removeCorrectAnswerHighlight() {
+    console.log(this.props);
+    const wrongAnswers = document.getElementsByClassName('wrong-answer');
+    const wrongAnswersArr = [...wrongAnswers];
+    const correctAnswer = document.getElementsByClassName('correct-answer')[0];
+    wrongAnswersArr.map((answer) => answer.classList.remove('wrong'));
+    correctAnswer.classList.remove('correct');
   }
 
   renderButtonNextQuestion() {
     const { questionNumber } = this.props;
-    if (questionNumber === 5) {
+    if (questionNumber === 4) {
       return (
         <Link to="/feedback">
           <button
