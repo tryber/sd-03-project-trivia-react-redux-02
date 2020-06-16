@@ -3,13 +3,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { ActionStopTimer } from '../store/actions/ActionsTimer';
-import { ActionSortAnswers } from '../store/actions';
 import '../pages/GamePage/GamePage.css';
 
 class GameContent extends Component {
-  componentDidMount() {
-    const { sortAnswers } = this.props;
-    sortAnswers();
+  static compareAnswers(a, b) {
+    const ans1 = a.answer.toUpperCase();
+    const ans2 = b.answer.toUpperCase();
+    let comparison = 0;
+    if (ans1 > ans2) {
+      comparison = 1;
+    } else if (ans1 < ans2) {
+      comparison = -1;
+    }
+    return comparison;
   }
 
   highlightCorrectAnswer() {
@@ -45,15 +51,6 @@ class GameContent extends Component {
     return points;
   }
 
-  shuffleOptions(options) {
-    const { sortAnswers } = this.props;
-    const toBeSorted = [...options];
-    if (sortAnswers) {
-      return toBeSorted;
-    }
-    return toBeSorted.sort(() => Math.random() - 0.5);
-  }
-
   generateOptions() {
     const { questions, questionNumber } = this.props;
     const {
@@ -61,17 +58,14 @@ class GameContent extends Component {
       incorrect_answers: incorrectAnswers,
     } = questions[questionNumber];
     const options = [{
-      answer: decodeURIComponent(correctAnswer),
+      answer: correctAnswer,
       isCorrect: true,
     }];
     incorrectAnswers.map((answer) => options.push({
-      answer: decodeURIComponent(answer),
+      answer,
       isCorrect: false,
     }));
-    console.log('antes', options);
-    console.log(this.shuffleOptions(options));
-    const sortedArr = this.shuffleOptions(options);
-    return sortedArr;
+    return options.sort(GameContent.compareAnswers);
   }
 
   renderQuestions() {
@@ -80,10 +74,10 @@ class GameContent extends Component {
     return (
       <div className="game-content-question">
         <div data-testid="question-category" className="game-content-category">
-          {decodeURIComponent(category)}
+          {category}
         </div>
         <div data-testid="question-text">
-          <p>{decodeURIComponent(question)}</p>
+          <p>{question}</p>
         </div>
       </div>
     );
@@ -136,7 +130,6 @@ const mapStateToProps = (
 const mapDispatchToProps = (dispatch) => bindActionCreators(
   {
     stopTimer: ActionStopTimer,
-    sortAnswers: ActionSortAnswers,
   }, dispatch,
 );
 
@@ -144,7 +137,6 @@ GameContent.propTypes = {
   questionNumber: propTypes.number.isRequired,
   questions: propTypes.arrayOf(propTypes.object).isRequired,
   timer: propTypes.number.isRequired,
-  sortAnswers: propTypes.bool.isRequired,
 };
 
 GameContent.defaultProps = {
