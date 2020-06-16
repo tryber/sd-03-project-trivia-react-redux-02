@@ -32,7 +32,7 @@ class Game extends Component {
         <div
           className="card"
           style={{
-            width: '400px',
+            width: '600px',
           }}
         >
           <GameHeader />

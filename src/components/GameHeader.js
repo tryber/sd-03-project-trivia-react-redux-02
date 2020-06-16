@@ -24,7 +24,9 @@ class GameHeader extends Component {
             </div>
             <p className="title is-6" data-testid="header-player-name">{`Jogador: ${name}`}</p>
             <div className="media-right">
-              <p className="subtitle is-6" data-testid="header-score">{`Pontos: ${score}`}</p>
+              <p className="subtitle is-6" data-testid="header-score">
+                {`Pontos: ${score}`}
+              </p>
             </div>
           </div>
         </div>
@@ -33,7 +35,9 @@ class GameHeader extends Component {
   }
 }
 
-const mapStateToProps = ({ ReducerPlayer: { name, gravatarEmail, score } }) => ({
+const mapStateToProps = ({
+  ReducerPlayer: { name, gravatarEmail, score },
+}) => ({
   name,
   gravatarEmail,
   score,

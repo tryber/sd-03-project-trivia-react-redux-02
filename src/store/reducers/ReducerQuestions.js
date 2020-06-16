@@ -29,7 +29,7 @@ function ReducerQuestions(state = initialState, action) {
     case types.NEXT_QUESTION:
       return {
         ...state,
-        index: state.questionNumber + 1,
+        questionNumber: state.questionNumber + 1,
       };
     default:
       return state;
