@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import '../pages/GamePage/GamePage.css';
 import { ActionStopTimer } from '../store/actions/ActionsTimer';
 import { ActionSumPoints } from '../store/actions';
@@ -44,6 +44,21 @@ class GameContent extends Component {
     }
   }
 
+  saveScore() {
+    const {
+      name,
+      gravatarEmail,
+      assertions, score,
+    } = this.props;
+    const obj = {
+      player: {
+        name, gravatarEmail, assertions, score,
+      },
+    };
+    localStorage.removeItem('state');
+    localStorage.setItem('state', JSON.stringify(obj));
+  }
+
   handleAnswer(event) {
     this.highlightCorrectAnswer();
     const answerClassList = event.target.classList;
@@ -53,7 +68,7 @@ class GameContent extends Component {
     }
   }
 
-  calculatePoints() {
+  async calculatePoints() {
     const {
       questions,
       questionNumber,
@@ -62,17 +77,8 @@ class GameContent extends Component {
     const { difficulty } = questions[questionNumber];
     const difficultyValue = this.difficultyMeasurement(difficulty);
     const points = 10 + (timer * difficultyValue);
-    sumPoints(points);
-  }
-
-  sumPointsAtLocalStorage(points) {
-    console.log(this.state);
-    const state = localStorage.getItem('state');
-    const object = JSON.parse(state);
-    object.player.score += points;
-    object.player.assertions += 1;
-    const result = JSON.stringify(object);
-    localStorage.setItem('state', result);
+    await sumPoints(points);
+    this.saveScore();
   }
 
   generateOptions() {
@@ -146,12 +152,22 @@ const mapStateToProps = (
   {
     ReducerQuestions: { questions, questionNumber },
     ReducerTimer: { timer, stopTimer },
+    ReducerPlayer: {
+      name,
+      gravatarEmail,
+      assertions,
+      score,
+    },
   },
 ) => ({
   questionNumber,
   questions,
   timer,
   stopTimer,
+  name,
+  gravatarEmail,
+  assertions,
+  score,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
@@ -162,12 +178,16 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
 );
 
 GameContent.propTypes = {
-  questionNumber: propTypes.number.isRequired,
-  questions: propTypes.arrayOf(propTypes.object).isRequired,
-  timer: propTypes.number.isRequired,
-  sumPoints: propTypes.func.isRequired,
-  stopTimer: propTypes.bool.isRequired,
-  toStopTimer: propTypes.func.isRequired,
+  questionNumber: PropTypes.number.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  timer: PropTypes.number.isRequired,
+  sumPoints: PropTypes.func.isRequired,
+  stopTimer: PropTypes.bool.isRequired,
+  toStopTimer: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
+  assertions: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 GameContent.defaultProps = {

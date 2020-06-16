@@ -12,6 +12,8 @@ const ReducerLogin = (state = INICIAL_STATE, { type, payload }) => {
       return { ...state, [payload.name]: payload.value };
     case types.HANDLE_SUBMIT:
       return { ...state, logged: true };
+    case types.HANDLE_LOGOUT:
+      return INICIAL_STATE;
     default:
       return state;
   }
