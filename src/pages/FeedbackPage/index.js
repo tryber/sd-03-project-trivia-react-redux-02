@@ -10,6 +10,7 @@ class Feedback extends Component {
         style={{
           display: 'flex',
           justifyContent: 'center',
+          width: '400px',
         }}
       >
         <Header />

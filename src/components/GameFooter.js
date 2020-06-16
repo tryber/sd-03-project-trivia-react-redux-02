@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Timer from './Timer';
 import { ActionResetTimer } from '../store/actions/ActionsTimer';
@@ -12,6 +12,17 @@ class GameFooter extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  saveScore() {
+    const { name, gravatarEmail, assertions, score,
+    } = this.props;
+    const obj = {
+      player: {
+        name, gravatarEmail, assertions, score,
+      },
+    };
+    localStorage.setItem('state', JSON.stringify(obj));
   }
 
   nextQuestion() {
@@ -34,15 +45,16 @@ class GameFooter extends Component {
     const { questionNumber } = this.props;
     if (questionNumber === 4) {
       return (
-        <Link to="/feedback">
+        <Redirect to="/feedback">
           <button
             type="button"
             className="button is-info card-footer-item"
             data-testid="btn-next"
+            onClick={() => this.saveScore()}
           >
-            FINALIZARA
+            FINALIZAR
           </button>
-        </Link>
+        </Redirect>
       );
     }
     return (
@@ -58,22 +70,42 @@ class GameFooter extends Component {
   }
 
   render() {
+    const { stopTimer } = this.props;
     return (
       <div className="card-footer">
         <div className="card-footer-item">
           <Timer />
         </div>
         <div>
-          {this.renderButtonNextQuestion()}
+          {
+            stopTimer
+              ? this.renderButtonNextQuestion()
+              : false
+          }
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ ReducerTimer: { timer }, ReducerQuestions: { questionNumber } }) => ({
+const mapStateToProps = (
+  {
+    ReducerTimer:
+    { timer, stopTimer },
+    ReducerQuestions:
+    { questionNumber },
+    ReducerPlayer: {
+      name, gravatarEmail, score, assertions,
+    },
+  },
+) => ({
   timer,
   questionNumber,
+  stopTimer,
+  name,
+  gravatarEmail,
+  score,
+  assertions,
 });
 
 
