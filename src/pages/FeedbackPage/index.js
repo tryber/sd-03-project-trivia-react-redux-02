@@ -1,11 +1,36 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Header from '../../components/GameHeader';
 
-export default class Results extends Component {
+class Feedback extends Component {
   render() {
     return (
-      <div>
-        Teste
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Header />
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ ReducerQuestions: { loading, questions } }) => ({
+  loading,
+  questions,
+});
+
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+  {
+
+  }, dispatch,
+);
+
+Feedback.defaultProps = {
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);

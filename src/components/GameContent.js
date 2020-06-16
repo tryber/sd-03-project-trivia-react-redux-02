@@ -6,26 +6,29 @@ import { ActionStopTimer } from '../store/actions/ActionsTimer';
 import '../pages/GamePage/GamePage.css';
 
 class GameContent extends Component {
-  static highlightCorrectAnswer() {
+  static compareAnswers(a, b) {
+    const ans1 = a.answer.toUpperCase();
+    const ans2 = b.answer.toUpperCase();
+    let comparison = 0;
+    if (ans1 > ans2) {
+      comparison = 1;
+    } else if (ans1 < ans2) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+  highlightCorrectAnswer() {
+    console.log(this.props);
     const wrongAnswers = document.getElementsByClassName('wrong-answer');
     const wrongAnswersArr = [...wrongAnswers];
     const correctAnswer = document.getElementsByClassName('correct-answer')[0];
     wrongAnswersArr.map((answer) => answer.classList.add('wrong'));
-    wrongAnswersArr.map((answer) => answer.classList.add('is-danger'));
     correctAnswer.classList.add('correct');
-    correctAnswer.classList.add('is-success');
   }
 
-  static calculatePoints() {
-    const { questions, questionNumber, timer } = this.props;
-    const { difficulty } = questions[questionNumber];
-    const difficultyValue = this.difficultyMeasurement(difficulty);
-    const points = 10 + (timer * difficultyValue);
-    return points;
-  }
-
-
-  static difficultyMeasurement(difficulty) {
+  difficultyMeasurement(difficulty) {
+    console.log(this.props);
     switch (difficulty) {
       case 'easy': {
         return 1;
@@ -38,6 +41,14 @@ class GameContent extends Component {
       }
       default: return 0;
     }
+  }
+
+  calculatePoints() {
+    const { questions, questionNumber, timer } = this.props;
+    const { difficulty } = questions[questionNumber];
+    const difficultyValue = this.difficultyMeasurement(difficulty);
+    const points = 10 + (timer * difficultyValue);
+    return points;
   }
 
   generateOptions() {
@@ -54,7 +65,7 @@ class GameContent extends Component {
       answer,
       isCorrect: false,
     }));
-    return options.sort(() => Math.random() - 0.5);
+    return options.sort(GameContent.compareAnswers);
   }
 
   renderQuestions() {
@@ -73,6 +84,7 @@ class GameContent extends Component {
   }
 
   renderOptions() {
+    const { timer } = this.props;
     return (
       <div className="game-content-answers">
         {this.generateOptions().map(
@@ -82,7 +94,8 @@ class GameContent extends Component {
               type="button"
               className={`button is-fullwidth 
                 ${object.isCorrect ? 'correct-answer' : 'wrong-answer'}`}
-              onClick={GameContent.highlightCorrectAnswer}
+              onClick={() => this.highlightCorrectAnswer()}
+              disabled={(timer === 0)}
             >
               {object.answer}
             </button>
@@ -104,13 +117,14 @@ class GameContent extends Component {
 
 const mapStateToProps = (
   {
-    ReducerQuestions: { questions, questionNumber },
+    ReducerQuestions: { questions, questionNumber, sorted },
     ReducerTimer: { timer },
   },
 ) => ({
   questionNumber,
   questions,
   timer,
+  sorted,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
