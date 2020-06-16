@@ -71,6 +71,7 @@ class GameContent extends Component {
     const state = localStorage.getItem('state');
     const object = JSON.parse(state);
     object.player.score += points;
+    object.player.assertions += 1;
     const result = JSON.stringify(object);
     localStorage.setItem('state', result);
   }
