@@ -33,7 +33,6 @@ class Login extends React.Component {
       },
     }));
     SubmitLogin();
-    localStorage.setItem('points', 0);
   }
 
   renderInputEmail() {
