@@ -15,9 +15,8 @@ class GameFooter extends Component {
   }
 
   nextQuestion() {
-    const { ResetTimer, ChangeQuestion } = this.props;
+    const { ChangeQuestion } = this.props;
     ChangeQuestion();
-    ResetTimer();
     this.removeCorrectAnswerHighlight();
   }
 
@@ -45,7 +44,7 @@ class GameFooter extends Component {
   }
 
   renderButtonNextQuestion() {
-    const { questionNumber } = this.props;
+    const { questionNumber, ResetTimer } = this.props;
     if (questionNumber === 4) {
       return (
         <Link to="/feedback">
@@ -64,7 +63,10 @@ class GameFooter extends Component {
       <button
         type="button"
         className="button is-info card-footer-item"
-        onClick={() => this.nextQuestion()}
+        onClick={() => {
+          this.nextQuestion();
+          ResetTimer();
+        }}
         data-testid="btn-next"
       >
         PRÓXIMA
@@ -77,7 +79,7 @@ class GameFooter extends Component {
     return (
       <div className="card-footer">
         <div className="card-footer-item">
-          {!stopTimer && <Timer />}
+          <Timer />
         </div>
         <div>
           {stopTimer && this.renderButtonNextQuestion()}
