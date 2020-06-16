@@ -40,7 +40,7 @@ class GameFooter extends Component {
             className="button is-info card-footer-item"
             data-testid="btn-next"
           >
-            FINALIZAR
+            FINALIZARA
           </button>
         </Link>
       );
