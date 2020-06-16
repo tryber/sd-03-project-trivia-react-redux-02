@@ -13,3 +13,4 @@ export const STOP_TIMER = 'STOP_TIMER';
 export const TICK_TIMER = 'TICK_TIMER';
 export const SAVE_TIMER = 'SAVE_TIMER';
 export const SUM_POINTS = 'SUM_POINTS';
+export const HANDLE_LOGOUT = 'HANDLE_LOGOUT';
