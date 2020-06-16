@@ -1,8 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
 import 'bulma/css/bulma.css';
 
 class Ranking extends React.Component {
@@ -24,11 +21,9 @@ class Ranking extends React.Component {
       <ol>
         {ranking.map(({ name, gravatarEmail, score }, index) => (
           <li>
-            <div>
-              <img className="image is-25x25" src={gravatarEmail} alt="profile-pic" />
-              <p data-testid={`player-name-${index}`}>{`${name} - `}</p>
-              <p data-testid={`player-score-${index}`}>{`${score} pontos`}</p>
-            </div>
+            <img className="image is-25x25" src={gravatarEmail} alt="profile-pic" />
+            <span data-testid={`player-name-${index}`}>{`${name} - `}</span>
+            <span data-testid={`player-score-${index}`}>{`${score} pontos`}</span>
           </li>
         ))}
       </ol>
@@ -62,7 +57,7 @@ class Ranking extends React.Component {
         <div
           className="card"
           style={{
-            width: '1',
+            width: '600px',
           }}
         >
           <div className="card-header-title is-centered" data-testid="ranking-title">
@@ -80,28 +75,4 @@ class Ranking extends React.Component {
   }
 }
 
-
-const mapStateToProps = ({
-  ReducerPlayer: {
-    name,
-    gravatarEmail,
-    score,
-  },
-}) => ({
-  name,
-  gravatarEmail,
-  score,
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators(
-  {
-  }, dispatch,
-);
-
-Ranking.propTypes = {
-  name: PropTypes.string.isRequired,
-  gravatarEmail: PropTypes.string.isRequired,
-  score: PropTypes.number.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Ranking);
+export default Ranking;

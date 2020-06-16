@@ -46,8 +46,6 @@ const mapStateToProps = ({
 
 
 GameHeader.propTypes = {
-  name: PropTypes.string.isRequired,
-  gravatarEmail: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
 };
 
