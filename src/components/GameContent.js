@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { ActionStopTimer } from '../store/actions/ActionsTimer';
 import '../pages/GamePage/GamePage.css';
+import { ActionStopTimer } from '../store/actions/ActionsTimer';
+import { ActionSumPoints } from '../store/actions';
 
 class GameContent extends Component {
   static compareAnswers(a, b) {
@@ -43,12 +44,35 @@ class GameContent extends Component {
     }
   }
 
+  handleAnswer(event) {
+    this.highlightCorrectAnswer();
+    const answerClassList = event.target.classList;
+    const answer = [...answerClassList];
+    if (answer.includes('correct-answer')) {
+      this.calculatePoints();
+    }
+  }
+
   calculatePoints() {
-    const { questions, questionNumber, timer } = this.props;
+    const {
+      questions,
+      questionNumber,
+      timer, sumPoints,
+    } = this.props;
     const { difficulty } = questions[questionNumber];
     const difficultyValue = this.difficultyMeasurement(difficulty);
     const points = 10 + (timer * difficultyValue);
-    return points;
+    sumPoints(points);
+  }
+
+  sumPointsAtLocalStorage(points) {
+    console.log(this.state);
+    const state = localStorage.getItem('state');
+    const object = JSON.parse(state);
+    object.player.score += points;
+    object.player.assertions += 1;
+    const result = JSON.stringify(object);
+    localStorage.setItem('state', result);
   }
 
   generateOptions() {
@@ -74,17 +98,17 @@ class GameContent extends Component {
     return (
       <div className="game-content-question">
         <div data-testid="question-category" className="game-content-category">
-          {category}
+          {decodeURIComponent(category)}
         </div>
         <div data-testid="question-text">
-          <p>{question}</p>
+          <p>{decodeURIComponent(question)}</p>
         </div>
       </div>
     );
   }
 
   renderOptions() {
-    const { timer } = this.props;
+    const { timer, stopTimer, toStopTimer } = this.props;
     return (
       <div className="game-content-answers">
         {this.generateOptions().map(
@@ -94,10 +118,13 @@ class GameContent extends Component {
               type="button"
               className={`button is-fullwidth 
                 ${object.isCorrect ? 'correct-answer' : 'wrong-answer'}`}
-              onClick={() => this.highlightCorrectAnswer()}
-              disabled={(timer === 0)}
+              onClick={(event) => {
+                this.handleAnswer(event);
+                toStopTimer();
+              }}
+              disabled={(timer === 0 || stopTimer)}
             >
-              {object.answer}
+              {decodeURIComponent(object.answer)}
             </button>
           ),
         )}
@@ -117,19 +144,20 @@ class GameContent extends Component {
 
 const mapStateToProps = (
   {
-    ReducerQuestions: { questions, questionNumber, sorted },
-    ReducerTimer: { timer },
+    ReducerQuestions: { questions, questionNumber },
+    ReducerTimer: { timer, stopTimer },
   },
 ) => ({
   questionNumber,
   questions,
   timer,
-  sorted,
+  stopTimer,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
   {
-    stopTimer: ActionStopTimer,
+    toStopTimer: ActionStopTimer,
+    sumPoints: ActionSumPoints,
   }, dispatch,
 );
 
@@ -137,6 +165,9 @@ GameContent.propTypes = {
   questionNumber: propTypes.number.isRequired,
   questions: propTypes.arrayOf(propTypes.object).isRequired,
   timer: propTypes.number.isRequired,
+  sumPoints: propTypes.func.isRequired,
+  stopTimer: propTypes.bool.isRequired,
+  toStopTimer: propTypes.func.isRequired,
 };
 
 GameContent.defaultProps = {
