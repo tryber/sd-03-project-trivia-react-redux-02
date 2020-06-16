@@ -22,8 +22,8 @@ class Feedback extends Component {
     return (
       <div>
         <p data-testid="feedback-text">{Feedback.renderFeedbackMessage(assertions)}</p>
-        <p data-testid="feedback-total-score">{`Pontuação: ${score}`}</p>
-        <p data-testid="feedback-total-question">{`Número de acertos: ${assertions}`}</p>
+        <p data-testid="feedback-total-score">{score}</p>
+        <p data-testid="feedback-total-question">{assertions}</p>
       </div>
     );
   }
