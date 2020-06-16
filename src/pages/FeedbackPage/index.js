@@ -13,6 +13,7 @@ class Feedback extends Component {
           width: '600px',
         }}
       >
+        INICIANDO FEEDBACK PAGE
         <Header />
       </div>
     );
