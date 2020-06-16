@@ -27,7 +27,11 @@ class Login extends React.Component {
       await GetToken();
     }
     localStorage.removeItem('state');
-    localStorage.setItem('state', JSON.stringify({ player: { name, gravatarEmail } }));
+    localStorage.setItem('state', JSON.stringify({
+      player: {
+        name, gravatarEmail, assertions: '', score: 0,
+      },
+    }));
     SubmitLogin();
     localStorage.setItem('points', 0);
   }

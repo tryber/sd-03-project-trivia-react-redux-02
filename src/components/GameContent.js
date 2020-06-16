@@ -46,8 +46,8 @@ class GameContent extends Component {
 
   handleAnswer(event) {
     this.highlightCorrectAnswer();
-    const answerHTMLCol = event.target.classList;
-    const answer = [...answerHTMLCol];
+    const answerClassList = event.target.classList;
+    const answer = [...answerClassList];
     if (answer.includes('correct-answer')) {
       this.calculatePoints();
     }
@@ -61,10 +61,18 @@ class GameContent extends Component {
     } = this.props;
     const { difficulty } = questions[questionNumber];
     const difficultyValue = this.difficultyMeasurement(difficulty);
-    let points = 10 + (timer * difficultyValue);
-    points += parseInt(localStorage.getItem('points'), 16);
-    localStorage.setItem('points', points);
+    const points = 10 + (timer * difficultyValue);
+    this.sumPointsAtLocalStorage(points);
     sumPoints(points);
+  }
+
+  sumPointsAtLocalStorage(points) {
+    console.log(this.state);
+    const state = localStorage.getItem('state');
+    const object = JSON.parse(state);
+    object.player.score += points;
+    const result = JSON.stringify(object);
+    localStorage.setItem('state', result);
   }
 
   generateOptions() {
