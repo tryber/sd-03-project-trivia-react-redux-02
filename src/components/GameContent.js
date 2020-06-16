@@ -65,16 +65,6 @@ class GameContent extends Component {
     sumPoints(points);
   }
 
-  sumPointsAtLocalStorage(points) {
-    console.log(this.state);
-    const state = localStorage.getItem('state');
-    const object = JSON.parse(state);
-    object.player.score += points;
-    object.player.assertions += 1;
-    const result = JSON.stringify(object);
-    localStorage.setItem('state', result);
-  }
-
   generateOptions() {
     const { questions, questionNumber } = this.props;
     const {
