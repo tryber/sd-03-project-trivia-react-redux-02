@@ -9,23 +9,24 @@ class GameHeader extends Component {
   }
 
   render() {
-    const { name, gravatarEmail, score } = this.props;
+    const { player } = JSON.parse(localStorage.getItem('state'));
+    const { score } = this.props;
     return (
       <header className="card-header">
         <div className="card-header-title">
           <div className="media">
             <div className="media-left">
               <img
-                src={gravatarEmail}
+                src={player.gravatarEmail}
                 alt="profile-pic"
                 className="image is-48x48"
                 data-testid="header-profile-picture"
               />
             </div>
-            <p className="title is-6" data-testid="header-player-name">{`Jogador: ${name}`}</p>
+            <p className="title is-6" data-testid="header-player-name">{`Jogador: ${player.name}`}</p>
             <div className="media-right">
               <p className="subtitle is-6" data-testid="header-score">
-                {`Pontos: ${score}`}
+                {score}
               </p>
             </div>
           </div>
@@ -45,8 +46,6 @@ const mapStateToProps = ({
 
 
 GameHeader.propTypes = {
-  name: PropTypes.string.isRequired,
-  gravatarEmail: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
 };
 

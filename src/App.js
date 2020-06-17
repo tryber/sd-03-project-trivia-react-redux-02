@@ -10,14 +10,13 @@ import './App.css';
 
 export default function App() {
   return (
-    <div className="App">
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route path="/game" component={Game} />
-        <Route path="/feedback" component={Feedback} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/ranking" component={Ranking} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path="/" component={Login} />
+      <Route exact path="/game" component={Game} />
+      <Route exact path="/feedback" component={Feedback} />
+      <Route exact path="/settings" component={Settings} />
+      <Route exact path="/ranking" component={Ranking} />
+    </Switch>
+
   );
 }

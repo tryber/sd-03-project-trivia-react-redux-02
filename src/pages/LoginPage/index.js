@@ -20,6 +20,7 @@ class Login extends React.Component {
     const {
       SubmitLogin, GetToken, email, name, SavePlayer,
     } = this.props;
+    localStorage.removeItem('token');
     const token = localStorage.getItem('token');
     const gravatarEmail = await GET_GRAVATAR_API(email);
     SavePlayer(name, gravatarEmail);
@@ -33,7 +34,6 @@ class Login extends React.Component {
       },
     }));
     SubmitLogin();
-    localStorage.setItem('points', 0);
   }
 
   renderInputEmail() {
