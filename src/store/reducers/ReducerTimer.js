@@ -5,12 +5,12 @@ const INICIAL_STATE = {
   stopTimer: false,
 };
 
-const ReducerTimer = (state = INICIAL_STATE, { type, payload }) => {
+const ReducerTimer = (state = INICIAL_STATE, { type }) => {
   switch (type) {
     case types.TICK_TIMER:
       if (state.timer !== 0 && state.stopTimer === false) {
         return {
-          ...state, timer: state.timer - 1,
+          ...state, timer: state.timer -
         };
       } return { ...state };
     case types.RESET_TIMER:
