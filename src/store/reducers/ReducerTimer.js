@@ -10,7 +10,7 @@ const ReducerTimer = (state = INICIAL_STATE, { type }) => {
     case types.TICK_TIMER:
       if (state.timer !== 0 && state.stopTimer === false) {
         return {
-          ...state, timer: state.timer -
+          ...state, timer: state.timer - 1,
         };
       } return { ...state };
     case types.RESET_TIMER:
