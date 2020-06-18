@@ -5,7 +5,7 @@ const INICIAL_STATE = {
   stopTimer: false,
 };
 
-const ReducerTimer = (state = INICIAL_STATE, { type, payload }) => {
+const ReducerTimer = (state = INICIAL_STATE, { type }) => {
   switch (type) {
     case types.TICK_TIMER:
       if (state.timer !== 0 && state.stopTimer === false) {
@@ -17,8 +17,8 @@ const ReducerTimer = (state = INICIAL_STATE, { type, payload }) => {
       return { ...state, stopTimer: false, timer: 30 };
     case types.STOP_TIMER:
       return { ...state, stopTimer: true, timer: 30 };
-    case types.SAVE_TIMER:
-      return { ...state, timeID: payload.timeID };
+    case types.HANDLE_LOGOUT:
+      return INICIAL_STATE;
     default:
       return state;
   }
