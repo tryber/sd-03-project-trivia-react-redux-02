@@ -23,7 +23,7 @@ class Ranking extends React.Component {
           <li>
             <img className="image is-25x25" src={gravatarEmail} alt="profile-pic" />
             <span data-testid={`player-name-${index}`}>{`${name} - `}</span>
-            <span data-testid={`player-score-${index}`}>{`${score} pontos`}</span>
+            <span data-testid={`player-score-${index}`}>{score}</span>
           </li>
         ))}
       </ol>

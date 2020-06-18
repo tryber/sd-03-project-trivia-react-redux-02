@@ -1,13 +1,13 @@
 import * as types from '../actions/ActionTypes';
 
-const initialState = {
+const INICIAL_STATE = {
   loading: false,
   questions: [],
   questionNumber: 0,
   error: '',
 };
 
-function ReducerQuestions(state = initialState, action) {
+function ReducerQuestions(state = INICIAL_STATE, action) {
   switch (action.type) {
     case types.REQUEST_QUESTIONS:
       return {
@@ -31,6 +31,8 @@ function ReducerQuestions(state = initialState, action) {
         ...state,
         questionNumber: state.questionNumber + 1,
       };
+    case types.HANDLE_LOGOUT:
+      return INICIAL_STATE;
     default:
       return state;
   }

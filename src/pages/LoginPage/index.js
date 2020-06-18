@@ -22,7 +22,7 @@ class Login extends React.Component {
     } = this.props;
     localStorage.removeItem('token');
     const token = localStorage.getItem('token');
-    const gravatarEmail = await GET_GRAVATAR_API(email);
+    const gravatarEmail = GET_GRAVATAR_API(email);
     SavePlayer(name, gravatarEmail);
     if (!token) {
       await GetToken();

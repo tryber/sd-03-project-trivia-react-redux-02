@@ -12,8 +12,8 @@ class Timer extends Component {
     };
   }
 
-  componentDidMount() {
-    this.StartTimer();
+  async componentDidMount() {
+    await this.StartTimer();
   }
 
   componentDidUpdate(prevProps) {
@@ -32,7 +32,7 @@ class Timer extends Component {
 
   StartTimer() {
     const { TickTimer } = this.props;
-    this.setState({ setTimer: setInterval(() => TickTimer(), 1000) });
+    this.setState(() => ({ setTimer: setInterval(() => TickTimer(), 1000) }));
   }
 
   render() {
